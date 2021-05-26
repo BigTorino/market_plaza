@@ -1,0 +1,9 @@
+{
+    "connection" : {
+        "server" : "localhost",
+        "user" : "root",
+        "password" : "",
+        "database" : "marketplaza",
+        "port" : "3306"
+    }
+}
