@@ -1,6 +1,6 @@
 <?php
 
-    class response{
+    class Response{
 
         private $response = [
             "status" => "",

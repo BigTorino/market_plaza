@@ -1,10 +1,10 @@
 <?php
 
-    require_once 'class/auth.class.php';
-    require_once 'class/response.class.php';
+    require_once 'class/Auth.class.php';
+    require_once 'class/Response.class.php';
 
-    $_auth = new auth;
-    $_response = new response;
+    $_auth = new Auth;
+    $_response = new Response;
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $postBody = file_get_contents("php://input");

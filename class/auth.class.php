@@ -1,9 +1,9 @@
 <?php
 
-    require_once 'connection/connection.php';
-    require_once 'response.class.php';
+    require_once 'connection/Connection.php';
+    require_once 'Response.class.php';
 
-    class auth extends connection {
+    class Auth {
 
         private $_response;
         private $_connection;

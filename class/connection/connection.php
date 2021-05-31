@@ -2,7 +2,7 @@
 
     //require_once '../response.class.php';
 
-    class connection {
+    class Connection {
 
         private $server;
         private $user;
@@ -71,14 +71,14 @@
             return md5($string);
         }
 
-        // $get: son las columnas qe quiero recibir
-        // $tabla: la tabla qe quiero ver
+        // $get: son las columnas que quiero recibir ej: id,nombe,direccion
+        // $tabla: la tabla que quiero ver
         // $con: son las condiciones (si $where es true) y el formato es: array["condicion" => "valor"]
         // $conOp: es el operador por cada condicion (si $where es true) y el 
         //         formato es: array["condicion" => "operador(=,<=,!=)"]
         // $where: es true o false depende de si queremos condicionar la busqeda
-        public function selectFrom($get, $tabla, $where, $con = array(), $conOp = array()){
-            $query = "SELECT " . $get . " FROM ". $tabla ." ";
+        public function selectFrom($get, $table, $where, $con = array(), $conOp = array()){
+            $query = "SELECT " . $get . " FROM ". $table ." ";
             if($where){
                 $query = $query . "WHERE";
                 $keys = array_keys($con);
@@ -101,7 +101,7 @@
             return ["data" => $this->UTF8($statement->fetchAll()), "rows" => $statement->rowCount()];
         }
 
-        public function insertInto(){
+        public function insertInto($tabla){
 
         }
 
