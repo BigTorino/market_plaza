@@ -39,42 +39,43 @@
 
     $conexion = new PDO('mysql:host=localhost;dbname=marketplaza', 'root', '');
 
-    $get  = "id,user,password";
+    $table  = "tokens";
 
-    $con = array(
-        "user" => "usuario2@gmail.com",
-        "password" => "e10adc3949ba59abbe56e057f20f883e"
+    $cols = array(
+        "userId",
+        "token",
+        "status",
+        "limitDate"
+
     );
 
-    $conVal = array(
-        "user" => "=",
-        "password" => "="
+    $values = array(
+        "userId" => "1",
+        "token" => "312321qwe1eqe",
+        "status" => "Active",
+        "limitDate" => "y-m-d M:i"
     );
 
-    $where = true;
+    $query = "INSERT INTO " . $table . " (";
+            //$keys = array_keys($cols);
+            foreach ($cols as $value) {
+                if($value == end($cols)){
+                    $query = $query . $value . ") VALUES(";
+                }else{
+                    $query = $query . $value . ",";
+                }
+            }
+            //$keyV = array_keys($values);
+            foreach ($values as $key => $value) {
+                if($value == end($values)){
+                    $query = $query . ":". $key . ")";
+                }else{
+                    $query = $query .":". $key . ",";
+                }
+            }
 
-    $query = "SELECT " . $get . " FROM users_api ";
-    if($where){
-        $query = $query . "WHERE";
-        $keys = array_keys($con);
-        foreach($con as $key => $value) { 
-            if ($key != end($keys)) {
-                $query = $query . " " . $key . " ". $conVal[$key] . " :" . $key . " AND";
-                $key = ":" . $key;
-            } else {
-                $query = $query . " " . $key . " ". $conVal[$key] . " :" . $key;
-                $key = ":" . $key;
-            }   
-        }
-    }
-    $stmt = $conexion->prepare($query);
-    if($where){
-        $stmt->execute($con);
-    }else{
-        $stmt->execute();
-    }
     print_r($query);
     echo "<br>";
-    print_r($stmt->fetchAll());
+    
 
 ?>

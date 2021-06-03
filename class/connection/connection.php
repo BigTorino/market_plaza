@@ -78,7 +78,7 @@
         //         formato es: array["condicion" => "operador(=,<=,!=)"]
         // $where: es true o false depende de si queremos condicionar la busqeda
         public function selectFrom($get, $table, $where, $con = array(), $conOp = array()){
-            $query = "SELECT " . $get . " FROM ". $table ." ";
+            $query = "SELECT " . $get . " FROM " . $table . " ";
             if($where){
                 $query = $query . "WHERE";
                 $keys = array_keys($con);
@@ -101,8 +101,28 @@
             return ["data" => $this->UTF8($statement->fetchAll()), "rows" => $statement->rowCount()];
         }
 
-        public function insertInto($tabla){
-
+        // $table = Nombre de la tabla a afectar
+        // $cols = columnas espesificas a afectar
+        // $values = valores a agregar en formato: ["userId" => "1"]
+        public function insertInto($table, $cols = array(), $values = array()){
+            $query = "INSERT INTO " . $table . " (";
+            foreach ($cols as $value) {
+                if($value == end($cols)){
+                    $query = $query . $value . ") VALUES(";
+                }else{
+                    $query = $query . $value . ",";
+                }
+            }
+            foreach ($values as $key => $value) {
+                if($value == end($values)){
+                    $query = $query . ":". $key . ")";
+                }else{
+                    $query = $query .":". $key . ",";
+                }
+            }
+            $statement = $this->conecction->prepare($query);
+            $statement->execute($values);
+            return $statement->rowCount();
         }
 
     }
